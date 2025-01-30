@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Birthday Surprise! 🎂</title>
+    <style>
+        body {
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            animation: bgAnimation 5s infinite alternate;
+        }
+        @keyframes bgAnimation {
+            0% { background-position: left; }
+            100% { background-position: right; }
+        }
+        #surpriseBtn {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-top: 20vh;
+            transition: transform 0.3s;
+        }
+        #surpriseBtn:hover {
+            background-color: #d81b60;
+            transform: scale(1.1);
+        }
+        #countdown {
+            display: none;
+            font-size: 50px;
+            font-weight: bold;
+            color: #ff4081;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: glow 1s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #ff4081; }
+            100% { text-shadow: 0 0 20px #d81b60; }
+        }
+        #birthdayMessage {
+            display: none;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            margin-top: 30px;
+            animation: dance 1s infinite alternate;
+        }
+        @keyframes dance {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+        .magic-sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: sparkleEffect 1.5s infinite;
+        }
+        @keyframes sparkleEffect {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            text-align: center;
+            animation: popupAppear 1s ease-out;
+        }
+        @keyframes popupAppear {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        @media (max-width: 768px) {
+            #surpriseBtn { font-size: 18px; padding: 12px 24px; }
+            #birthdayMessage { font-size: 30px; }
+            .popup { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <button id="surpriseBtn">🎉 Click for Surprise! 🎶</button>
+    <h1 id="countdown"></h1>
+    <h1 id="birthdayMessage">🎂 𝐻𝒶𝓅𝓅𝒾𝑒𝓈𝓉 𝐵𝒾𝓇𝓉𝒽𝒹𝒶𝓎! 🎈</h1>
+   
+    <audio id="music" src="birthday song.mp3"></audio>
+
+    <div id="popup" class="popup">
+        <h2>💌 My Special Wish for You! 🎁</h2>
+        <p>𝐻𝒶𝓅𝓅𝓎 𝐵𝒾𝓇𝓉𝒽𝒹𝒶𝓎 𝒫𝓇𝒾𝓃𝒸𝑒𝓈𝓈 𝓎𝑜𝓊 𝒶𝓇𝑒 𝓂𝑜𝓈𝓉 𝒷𝑒𝒶𝓊𝓉𝒾𝒻𝓊𝓁 𝓅𝑒𝓇𝓈𝑜𝓃 𝒾𝓃 𝓂𝓎 𝓁𝒾𝒻𝑒.𝐼 𝓌𝒾𝓈𝒽 𝓎𝑜𝓊 𝒶 𝒹𝒶𝓎 𝒻𝒾𝓁𝓁𝑒𝒹 𝓌𝒾𝓉𝒽 𝓁𝑜𝓋𝑒, 𝒿𝑜𝓎, 𝒶𝓃𝒹 𝒶𝓁𝓁 𝓉𝒽𝑒 𝒽𝒶𝓅𝓅𝒾𝓃𝑒𝓈𝓈 𝓎𝑜𝓊 𝒹𝑒𝓈𝑒𝓇𝓋𝑒. 𝓉𝒽𝒶𝓃𝓀 𝓎𝑜𝓊 𝒻𝑜𝓇 𝑒𝓋𝑒𝓇𝓎𝓉𝒽𝒾𝓃𝑔 𝒾 𝓂𝒾𝓈𝓈 𝓎𝑜𝓊! 🎂💖✨</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        document.getElementById("surpriseBtn").addEventListener("click", function () {
+            this.style.display = "none";
+            let countdownText = document.getElementById("countdown");
+            countdownText.style.display = "block";
+            let count = 5;
+            countdownText.innerText = count;
+            let countdownInterval = setInterval(function () {
+                count--;
+                countdownText.innerText = count;
+                if (count === 0) {
+                    clearInterval(countdownInterval);
+                    countdownText.style.display = "none";
+                    startSurprise();
+                }
+            }, 1000);
+        });
+
+        function startSurprise() {
+            document.getElementById("music").play().catch(() => {
+                alert("Click anywhere to enable music!");
+            });
+            document.getElementById("birthdayMessage").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("popup").style.display = "block";
+            }, 2000);
+            createSparkles();
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 50; i++) {
+                let sparkle = document.createElement("div");
+                sparkle.className = "magic-sparkle";
+                sparkle.style.left = Math.random() * window.innerWidth + "px";
+                sparkle.style.top = Math.random() * window.innerHeight + "px";
+                sparkle.style.background = ['gold', 'pink', 'white'][Math.floor(Math.random() * 3)];
+                sparkle.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1500);
+            }
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+</body>
+</html>
